@@ -45,6 +45,8 @@
   <ItemGroup>
     <Compile Include="Address.cs" />
     <Compile Include="Course.cs" />
+    <Compile Include="DoublyLinkedList.cs" />
+    <Compile Include="DoublyLinkedListNode.cs" />
     <Compile Include="Enrolment.cs" />
     <Compile Include="Person.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
