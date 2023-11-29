@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TafeSAEnrolmentLibrary
 {
-    public sealed class Student : Person
+    public sealed class Student : Person, IComparable<Student>
     {
         //assessor methods
         public Enrolment StudentEnrolment { get; set; }
@@ -26,6 +26,17 @@ namespace TafeSAEnrolmentLibrary
         public override string ToString()
         {
             return "Student[ID:"+ StudentID +" "+ base.ToString() + "]\nProgram["+ Program + ", Date Registered: "+ DateRegistered +"]\nEnrolment Details["+StudentEnrolment+"]";
+        }
+
+        // combine studentID and dateRegistered to create a more unique hashcode
+        public override int GetHashCode()
+        {
+            return this.StudentID.GetHashCode() ^ this.DateRegistered.GetHashCode();
+        }
+
+        public int CompareTo(Student other)
+        {
+            return this.Name.CompareTo(other.Name);
         }
     }
 }
