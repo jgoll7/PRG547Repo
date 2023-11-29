@@ -19,9 +19,13 @@ namespace TafeSAEnrolmentLibrary
         [Test]
         public void TestStudent()
         {
-            Student s1 = new Student(1, "Mark", "Mark@mail.com", "04940930", "Cert IV Programming", new DateTime());
-            Student s2 = new Student(1, "Mark", "Mark@mail.com", "04940930", "Cert IV Programming", new DateTime());
+            Address a = new Address("11a", "Malcom Street", "5000", "SA");
+            Course c = new Course("SCN561", "Advanced Science", 20000);
+            Enrolment e = new Enrolment(new DateTime(2023, 11, 04), "8", 2, c);
+            Student s1 = new Student(1, "Mark", "Mark@mail.com", "04940930", a, "Cert IV Programming", new DateTime(),e);
+            Student s2 = new Student(1, "Mark", "Mark@mail.com", "04940930", a, "Cert IV Programming", new DateTime(),e);
             Assert.That(s1 != s2);
+
         }
         
     }
