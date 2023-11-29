@@ -31,12 +31,31 @@ namespace TafeSAEnrolmentLibrary
         // combine studentID and dateRegistered to create a more unique hashcode
         public override int GetHashCode()
         {
-            return this.StudentID.GetHashCode() ^ this.DateRegistered.GetHashCode();
+            return this.StudentID.GetHashCode() ^ this.Email.ToLower().GetHashCode();
+        }
+
+        //override Student Equals
+        public override bool Equals(object obj)
+        {
+            return obj.GetHashCode() == this.GetHashCode();
         }
 
         public int CompareTo(Student other)
         {
-            return this.Name.CompareTo(other.Name);
+            return this.Name.ToLower().CompareTo(other.Name.ToLower());
         }
+
+        //Override operators
+        public static bool operator ==(Student x, Student y)
+        {
+            return object.Equals(x, y);
+        }
+
+        public static bool operator !=(Student x, Student y)
+        {
+            return !object.Equals(x, y);
+        }
+
+        
     }
 }

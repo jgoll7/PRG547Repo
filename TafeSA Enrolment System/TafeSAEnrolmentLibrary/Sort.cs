@@ -9,14 +9,14 @@ namespace TafeSAEnrolmentLibrary
     public class Sort
     {
 
-        private static void BubbleSortOfInt(int[] numbers)
+        public static void BubbleSort<T>(T[] numbers)where T: IComparable<T>
         {
-            int temp;
+            T temp;
             for (int i = 0; i < numbers.Length - 1; i++)
             {
                 for (int j = 0; j < numbers.Length - 1; j++)
                 {
-                    if (numbers[j] > numbers[j + 1])
+                    if (numbers[j].CompareTo(numbers[j + 1]) > 0)
                     {
                         //swap the numbers
                         temp = numbers[j + 1];
