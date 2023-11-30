@@ -27,7 +27,7 @@ namespace TafeSAEnrolmentLibrary
             }
         }
 
-        public static void SelectionSortAsc<T>(T[] arr) where T : IComparable<T>
+        public static void SelectionSortDesc<T>(T[] arr) where T : IComparable<T>
         {
             T temp;
             int minIndex;
@@ -46,7 +46,7 @@ namespace TafeSAEnrolmentLibrary
             }
         }
 
-        public static void SelectionSortDesc<T>(T[] arr) where T : IComparable<T>
+        public static void SelectionSortAsc<T>(T[] arr) where T : IComparable<T>
         {
             T temp;
             int minIndex;

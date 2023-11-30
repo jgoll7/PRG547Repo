@@ -4,22 +4,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TafeSAEnrolmentLibrary
+namespace TafeSAEnrolmentLibrary 
 {
-    class BinaryTree
+    public class BinaryTree<T> where T : IComparable<T>
     {
-        public Node Root { get; set; }
+        public Node<T> Root { get; set; }
 
-        public bool Add(int value)
+        public bool Add(T value)
         {
-            Node before = null, after = this.Root;
+            Node<T> before = null, after = this.Root;
 
             while (after != null) // while there is another node
             {
                 before = after;
-                if (value < after.Data)//if value passed through is < Root of tree
+                if (value.CompareTo(after.Data) < 0)//if value passed through is < Root of tree
                     after = after.LeftNode; // Root = Root.LeftNode
-                else if (value > after.Data)// if new node is > than root (root = 5) (4,5,6) (7)
+                else if (value.CompareTo(after.Data) > 0)// if new node is > than root (root = 5) (4,5,6) (7)
                     after = after.RightNode; // Root = Root.RightNode (root = 6), ((4,5),6,(7))
                 else
                 {
@@ -27,7 +27,7 @@ namespace TafeSAEnrolmentLibrary
                 }
             }
 
-            Node newNode = new Node(); // create newNode, give it the values of the integer passed through
+            Node<T> newNode = new Node<T>(); // create newNode, give it the values of the integer passed through
             newNode.Data = value;
 
             if (this.Root == null)//If tree is empty, make the root of the Tree equal to newNode/value
@@ -36,7 +36,7 @@ namespace TafeSAEnrolmentLibrary
             }
             else
             {
-                if (value < before.Data) // remember that before is a Node, Nodes have LeftNode,RightNode,Data
+                if (value.CompareTo(before.Data) < 0)
                     before.LeftNode = newNode;
                 else
                     before.RightNode = newNode;
@@ -44,17 +44,17 @@ namespace TafeSAEnrolmentLibrary
             return true;
         }
         //Method to find value of a node
-        public Node Find(int value)
+        public Node<T> Find(T value)
         {
             return this.Find(value, this.Root);
         }
 
-        private Node Find(int value, Node parent)
+        private Node<T> Find(T value, Node<T> parent)
         {
             if (parent != null) // if parent is not null
             {
-                if (value == parent.Data) return parent;
-                if (value < parent.Data)
+                if (value.CompareTo(parent.Data) == 0) return parent;
+                if (value.CompareTo(parent.Data) < 0)
                     return Find(value, parent.LeftNode);
                 else
                     return Find(value, parent.RightNode);
@@ -62,17 +62,17 @@ namespace TafeSAEnrolmentLibrary
             return null;
         }
 
-        public void Remove(int value)
+        public void Remove(T value)
         {
             this.Root = Remove(this.Root, value);
         }
 
-        private Node Remove(Node parent, int key)
+        private Node<T> Remove(Node<T> parent, T key)
         {
             if (parent == null) return parent;
 
-            if (key < parent.Data) parent.LeftNode = Remove(parent.LeftNode, key);
-            else if (key > parent.Data)
+            if (key.CompareTo(parent.Data) < 0) parent.LeftNode = Remove(parent.LeftNode, key);
+            else if (key.CompareTo(parent.Data) > 0)
                 parent.RightNode = Remove(parent.RightNode, key);
 
             //if value is same as parent's value, node needs to be deleted
@@ -94,9 +94,9 @@ namespace TafeSAEnrolmentLibrary
             return parent;
         }
 
-        private int MinValue(Node node)
+        public T MinValue(Node<T> node)
         {
-            int minv = node.Data;
+            T minv = node.Data;
 
             while (node.LeftNode != null)
             {
@@ -107,12 +107,51 @@ namespace TafeSAEnrolmentLibrary
             return minv;
         }
 
+        /// EDIT THIS ON THE 31ST
+        public T FindSmallestValue()
+        {
+            if (Root == null)
+            {
+                throw new InvalidOperationException("The tree is empty.");
+            }
+
+            Node<T> minv = Root;
+
+            // Traverse to the leftmost node
+            while (minv.LeftNode != null)
+            {
+                minv = minv.LeftNode;
+            }
+
+            return minv.Data;
+        }
+
+        public T FindLargestValue()
+        {
+            if (Root == null)
+            {
+                throw new InvalidOperationException("The tree is empty.");
+            }
+
+            Node<T> node = Root;
+            T maxv = node.Data;
+
+            // Traverse to the rightmost node
+            while (node.RightNode != null)
+            {
+                maxv = node.RightNode.Data;
+                node = node.RightNode;
+            }
+
+            return maxv;
+        }
+
         //ORDER: node, left, right
-        public void TraversePreOrder(Node parent)
+        public void TraversePreOrder(Node<T> parent)
         {
             if (parent != null)
             {
-                Console.Write(parent.Data + " ");
+                Console.Write(parent.Data + "\n\n");
                 TraversePreOrder(parent.LeftNode);
                 TraversePreOrder(parent.RightNode);
             }
@@ -120,25 +159,25 @@ namespace TafeSAEnrolmentLibrary
 
         //method to traverse in asc order
         // visit left subtree first, then the node, then the right tree
-        public void TraverseInOrder(Node parent)
+        public void TraverseInOrder(Node<T> parent)
         {
             if (parent != null)
             {
                 TraverseInOrder(parent.LeftNode);
-                Console.Write(parent.Data + " ");
+                Console.Write(parent.Data + "\n\n");
                 TraverseInOrder(parent.RightNode);
             }
         }
 
         //LHS print children first
         //ORDER: left, right, node
-        public void TraversePostOrder(Node parent)
+        public void TraversePostOrder(Node<T> parent)
         {
             if (parent != null)
             {
                 TraversePostOrder(parent.LeftNode);
                 TraversePostOrder(parent.RightNode);
-                Console.Write(parent.Data + " ");
+                Console.Write(parent.Data + "\n\n");
             }
         }
     }

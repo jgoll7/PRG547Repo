@@ -17,5 +17,28 @@ namespace TafeSAEnrolmentLibrary
 
         public LinkedListNode<T> Next { get; set; }
 
+
+        //Override operators
+        public static bool operator ==(LinkedListNode<T> x, LinkedListNode<T> y)
+        {
+            return object.Equals(x, y);
+        }
+
+        public static bool operator !=(LinkedListNode<T> x, LinkedListNode<T> y)
+        {
+            return !object.Equals(x, y);
+        }
+
+        //Hashcode of LinkedListNode is now Value Hashcode
+        public override int GetHashCode()
+        {
+            return this.Value.GetHashCode();
+        }
+
+        //override LinkedListNode Equals
+        public override bool Equals(object obj)
+        {
+            return obj.GetHashCode() == this.GetHashCode();
+        }
     }
 }

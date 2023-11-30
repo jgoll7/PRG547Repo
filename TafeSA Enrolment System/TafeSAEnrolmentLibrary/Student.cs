@@ -31,7 +31,7 @@ namespace TafeSAEnrolmentLibrary
         // combine studentID and dateRegistered to create a more unique hashcode
         public override int GetHashCode()
         {
-            return this.StudentID.GetHashCode() ^ this.Email.ToLower().GetHashCode();
+            return this.StudentID.GetHashCode() ^ this.Name.ToLower().GetHashCode();
         }
 
         //override Student Equals
@@ -42,7 +42,7 @@ namespace TafeSAEnrolmentLibrary
 
         public int CompareTo(Student other)
         {
-            return this.Name.ToLower().CompareTo(other.Name.ToLower());
+           return this.StudentID.CompareTo(other.StudentID);
         }
 
         //Override operators

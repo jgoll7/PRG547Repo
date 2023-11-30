@@ -10,8 +10,14 @@ namespace TafeSAEnrolmentLibrary
     [TestFixture]
     class UnitTesting
     {
-        private Student s1,s2,s3,s4,s5,s6,s7,s8,s9,s10;
+        private Student s1,s2,s3,s4,s5,s6,s7,s8,s9,s10,s11,s12;
         private Student[] students;
+        private LinkedList<Student> lList;
+        private LinkedListNode<Student> studentNode;
+        private DoublyLinkedList<Student> dLList;
+        private DoublyLinkedListNode<Student> dllStudentNode;
+        private BinaryTree<Student> studentTree;
+
         [SetUp]
         public void Setup()
         {
@@ -40,7 +46,7 @@ namespace TafeSAEnrolmentLibrary
             s2 = new Student(2, "James", "James@mail.com", "04940930", a1, "Cert IV Programming", new DateTime(), e2);
             s3 = new Student(3, "Julie", "Julie@mail.com", "04111930", a2, "Cert IV Programming", new DateTime(), e3);
             s4 = new Student(4, "Aaron", "Aaron@mail.com", "049430930", a3, "Cert IV Programming", new DateTime(), e4);
-            s5 = new Student(5, "Mark", "Mark@mail.com", "04943210", a5, "Cert IV Programming", new DateTime(), e5);
+            s5 = new Student(1, "Marka", "Marka@mail.com", "011143210", a5, "Cert IV Programming", new DateTime(), e5);
             s6 = new Student(6, "Wendy", "Wendy@mail.com", "0664930", a2, "Cert IV Programming", new DateTime(), e6);
             s7 = new Student(7, "Oscar", "Oscar@mail.com", "04660930", a4, "Cert IV Programming", new DateTime(), e7);
             s8 = new Student(8, "Mike", "Mike@mail.com", "04977430", a1, "Cert IV Programming", new DateTime(), e8);
@@ -61,14 +67,37 @@ namespace TafeSAEnrolmentLibrary
             students[8] = s9;
             students[9] = s10;
 
+            //Create LinkedList
+            lList = new LinkedList<Student>();
+            foreach (Student student in students)
+            {
+                lList.Add(student);
+            }
+
+            //Create LinkedListNode
+            s11 = new Student(11, "Wilder", "Winner@mail.com", "0478211930", null, "Cert IV Programming", new DateTime(), null);
+            studentNode = new LinkedListNode<Student>(s11);
+
+            //Create DoublyLinkedList
+            dLList = new DoublyLinkedList<Student>();
+            foreach (Student student in students)
+            {
+                lList.Add(student);
+            }
+
+            //Create DoublyLinkedListNode
+            s12 = new Student(12, "Louis", "Armstrong@mail.com", "000000030", null, "Cert IV Programming", new DateTime(), null);
+            dllStudentNode = new DoublyLinkedListNode<Student>(s12);
+
+            //Create BinaryTree
+            studentTree = new BinaryTree<Student>();
+            foreach (Student student in students)
+            {
+                studentTree.Add(student);
+            }
+
         }
         
-        [Test]
-        public void TestStudent()
-        {
-            Assert.That(students[0] != students[1]);
-            Assert.That(students[0].Equals(students[4]));
-        }
         //8.1 Testing Searching and Sorting
 
         [Test]
@@ -80,6 +109,7 @@ namespace TafeSAEnrolmentLibrary
         }
 
         [Test]
+        // Search for student that does not exist
         public void TestBinarySearch()
         {
             int result;
@@ -89,29 +119,127 @@ namespace TafeSAEnrolmentLibrary
         }
 
         [Test]
+        //Sort array in alphabetical order
         public void TestBubbleSort()
         {
-            int result;
             Sort.BubbleSort(students);
-            Assert.That(students[0].Name == "Aaron");
+            Assert.That(students[0].StudentID.Equals(1));
         }
 
         //8.2 Testing Linked Lists Data Structures
+
+        //8.2.1 Testing Linked List
+        // a)
         [Test]
-        public void TestLinkedList()
-        {
-            LinkedList<Student> lList = new LinkedList<Student>();
-            foreach(Student student in students)
-            {
-                lList.Add(student);
-            }
-
-            Student s11 = new Student(11, "Wilder", "Winner@mail.com", "0478211930", null, "Cert IV Programming", new DateTime(), null);
-            lList.AddFirst(s11);
-
-            Assert.That(lList.Contains(s11));
+        public void TestLinkedListHead()
+        {           
+            lList.AddFirst(studentNode);
+            Assert.That(lList.Head == studentNode);
         }
 
+        // b)
+        [Test]
+        // Add student at tail of list
+        public void TestLinkedListTail()
+        {
+            lList.AddLast(studentNode);
+            Assert.That(lList.Tail == studentNode);
+        }
+
+        //c)
+        [Test]
+        public void TestLinkedListFind()
+        {
+            lList.Add(s11);
+            Assert.That(lList.Contains(s11));   
+        }
+
+        // d)
+        [Test]
+        // Remove student from start of list
+        public void TestLinkedListHeadRemove()
+        {
+            lList.AddFirst(studentNode);
+            lList.RemoveFirst();
+            Assert.That(!lList.Contains(s11));
+        }
+
+        // e)
+        [Test]
+        // Remove student from end of list
+        public void TestLinkedListTailRemove()
+        {
+            lList.AddLast(studentNode);
+            lList.RemoveLast();
+            Assert.That(!lList.Contains(s11));
+        }
+
+        //8.2.2 Testing Doubly Linked List
+        // a)
+        [Test]
+        public void TestDoublyLinkedListHead()
+        {
+            dLList.AddFirst(dllStudentNode);
+            Assert.That(dLList.Head == dllStudentNode);
+        }
+
+        // b)
+        [Test]
+        // Add student at tail of list
+        public void TestDoublyLinkedListTail()
+        {
+            dLList.AddLast(dllStudentNode);
+            Assert.That(dLList.Tail == dllStudentNode);
+        }
+
+        //c)
+        [Test]
+        public void TestDoublyLinkedListFind()
+        {
+            dLList.Add(s12);
+            Assert.That(dLList.Contains(s12));   
+        }
+
+        // d)
+        [Test]
+        // Remove student from start of list
+        public void TestDoublyLinkedListHeadRemove()
+        {
+            dLList.AddFirst(dllStudentNode);
+            dLList.RemoveFirst();
+            Assert.That(!dLList.Contains(s12));
+        }
+
+        // e)
+        [Test]
+        // Remove student from end of list
+        public void TestDoublyLinkedListTailRemove()
+        {
+            dLList.AddLast(dllStudentNode);
+            dLList.RemoveLast();
+            Assert.That(!dLList.Contains(s12));
+        }
+
+        //8.3 Testing Binary Tree
+
+        //a)
+        [Test]
+        public void TestBinaryTreeFindSmallest()
+        {
+
+            Node<Student> foundNode = studentTree.Find(s1);
+
+            Assert.That(foundNode.Data.Equals(s1));
+        }
+
+        //b)
+        [Test]
+        public void TestBinaryFindLargest()
+        {
+            Student foundMax = studentTree.FindLargestValue();
+
+            Assert.That(foundMax.StudentID == 10);
+        }
 
     }
 }

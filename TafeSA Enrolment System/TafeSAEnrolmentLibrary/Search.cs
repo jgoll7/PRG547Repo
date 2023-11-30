@@ -20,7 +20,7 @@ namespace TafeSAEnrolmentLibrary
                 mid = (min + max) / 2;
                 if (myArray[mid].CompareTo(target) == 0) // if target is found, return index mid
                     return mid;
-                if (myArray[mid].CompareTo(target) < 0) // check if target is in upper half of search
+                if (myArray[mid].CompareTo(target) > 0) // check if target is in upper half of search
                     min = mid + 1; 
                 else
                     max = mid - 1; // else target is in lower half, raise max to mid - 1

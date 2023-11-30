@@ -47,6 +47,11 @@ namespace TafeSAEnrolmentLibrary
             }
         }
 
+        public void AddLast(T value)
+        {
+            AddLast(new LinkedListNode<T>(value));
+        }
+
         public void AddLast(LinkedListNode<T> node)
         {
             if (Count == 0)
@@ -56,9 +61,10 @@ namespace TafeSAEnrolmentLibrary
             else
             {
                 Tail.Next = node;
-
-                Count++;
             }
+            Tail = node;
+            Count++;
+            
         }
 
         public void RemoveFirst()
@@ -80,6 +86,7 @@ namespace TafeSAEnrolmentLibrary
             }
         }
 
+        // Remove last item in list
         public void RemoveLast()
         {
             if (Count != 0)
@@ -103,48 +110,7 @@ namespace TafeSAEnrolmentLibrary
             }
         }
 
-        public int Count
-        {
-            get;
-            private set;
-        }
-
-        public void Add(T item)
-        {
-            AddFirst(item);
-        }
-
-        public bool Contains(T item)
-        {
-            LinkedListNode<T> current = Head;
-            while (current != null)
-            {
-                if (current.Value.Equals(item))
-                {
-                    current = current.Next;
-                }
-            }
-            return false;
-        }
-
-        public void CopyTo(T[] array, int arrayIndex)
-        {
-            LinkedListNode<T> current = Head;
-            while (current != null)
-            {
-                array[arrayIndex++] = current.Value;
-                current = current.Next;
-            }
-        }
-
-        public bool IsReadOnly
-        {
-            get
-            {
-                return false;
-            }
-        }
-
+        //Remove specific item
         public bool Remove(T item)
         {
             LinkedListNode<T> previous = null;
@@ -187,6 +153,48 @@ namespace TafeSAEnrolmentLibrary
             }
             return false;
         }
+        public int Count
+        {
+            get;
+            private set;
+        }
+
+        public void Add(T item)
+        {
+            AddFirst(item);
+        }
+
+        public bool Contains(T item)
+        {
+            LinkedListNode<T> current = Head;
+            while (current != null)
+            {
+                if (current.Value.Equals(item))
+                {
+                    return true;
+                }
+                current = current.Next;
+            }
+            return false;
+        }
+
+        public void CopyTo(T[] array, int arrayIndex)
+        {
+            LinkedListNode<T> current = Head;
+            while (current != null)
+            {
+                array[arrayIndex++] = current.Value;
+                current = current.Next;
+            }
+        }
+
+        public bool IsReadOnly
+        {
+            get
+            {
+                return false;
+            }
+        }  
 
         System.Collections.Generic.IEnumerator<T> System.Collections.Generic.IEnumerable<T>.GetEnumerator()
         {
@@ -208,5 +216,6 @@ namespace TafeSAEnrolmentLibrary
             Tail = null;
             Count = 0;
         }
+
     }
 }
