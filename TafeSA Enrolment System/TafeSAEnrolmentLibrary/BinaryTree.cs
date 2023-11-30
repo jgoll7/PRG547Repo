@@ -107,7 +107,6 @@ namespace TafeSAEnrolmentLibrary
             return minv;
         }
 
-        /// EDIT THIS ON THE 31ST
         public T FindSmallestValue()
         {
             if (Root == null)
@@ -115,15 +114,17 @@ namespace TafeSAEnrolmentLibrary
                 throw new InvalidOperationException("The tree is empty.");
             }
 
-            Node<T> minv = Root;
+            Node<T> node = Root;
+            T minv = node.Data;
 
             // Traverse to the leftmost node
-            while (minv.LeftNode != null)
+            while (node.LeftNode != null)
             {
-                minv = minv.LeftNode;
+                minv = node.LeftNode.Data;
+                node = node.LeftNode;
             }
 
-            return minv.Data;
+            return minv;
         }
 
         public T FindLargestValue()

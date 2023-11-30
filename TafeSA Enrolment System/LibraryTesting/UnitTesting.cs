@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,7 @@ namespace TafeSAEnrolmentLibrary
     [TestFixture]
     class UnitTesting
     {
-        private Student s1,s2,s3,s4,s5,s6,s7,s8,s9,s10,s11,s12;
+        private Student s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12;
         private Student[] students;
         private LinkedList<Student> lList;
         private LinkedListNode<Student> studentNode;
@@ -227,9 +228,9 @@ namespace TafeSAEnrolmentLibrary
         public void TestBinaryTreeFindSmallest()
         {
 
-            Node<Student> foundNode = studentTree.Find(s1);
+            Student foundMin = studentTree.FindSmallestValue();
 
-            Assert.That(foundNode.Data.Equals(s1));
+            Assert.That(foundMin.StudentID == 1);
         }
 
         //b)
@@ -240,6 +241,29 @@ namespace TafeSAEnrolmentLibrary
 
             Assert.That(foundMax.StudentID == 10);
         }
+
+        //c)
+        [Test]
+        public void TestBinaryFind()
+        {
+            Node<Student> foundNode = studentTree.Find(s10);
+            Student found = foundNode.Data;
+            Assert.That(found.StudentID == 10);
+        }
+
+        //d)
+        [Test]
+        public void TestBinaryDelete()
+        {
+
+            Node<Student> result;
+
+            studentTree.Remove(s10);
+            result = studentTree.Find(s10);
+            ClassicAssert.IsNull(result);
+        }
+
+
 
     }
 }
