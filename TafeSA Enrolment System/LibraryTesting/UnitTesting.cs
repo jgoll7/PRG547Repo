@@ -264,6 +264,29 @@ namespace TafeSAEnrolmentLibrary
         }
 
 
+        //Exception Testing
+        [Test]
+        public void TestEmptyTree()
+        {
+            BinaryTree<Student> exceptionTree = new BinaryTree<Student>();
+
+            /*Must provide lambda or delegate for Assert.Throws to be able to observe exceptions
+             TestDelegate testDelegateTree = delegate
+            {
+                exceptionTree.FindSmallestValue();
+            };
+            Assert.Throws<InvalidOperationException>(testDelegateTree);
+            **/
+            Assert.Throws<InvalidOperationException>(() => exceptionTree.FindSmallestValue());
+        }
+
+        [Test]
+        public void TestEmptyRemoveTree()
+        {
+            BinaryTree<Student> exceptionTree = new BinaryTree<Student>();
+            Assert.Throws<InvalidOperationException>(() => exceptionTree.Remove(s1));
+        }
+
 
     }
 }

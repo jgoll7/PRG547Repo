@@ -143,6 +143,14 @@ namespace TafeSAEnrolmentLibrary
             }
             Console.WriteLine("\nTESTING TRAVERSAL");
             studentTree.TraverseInOrder(studentTree.Root);
+
+            Console.WriteLine("\nTESTING EXCEPTIONS");
+            BinaryTree<Student> exceptionTree = new BinaryTree<Student>();
+            exceptionTree.Remove(s1);
+            exceptionTree.Find(s1);
+            
+            exceptionTree.FindSmallestValue();
+            exceptionTree.FindLargestValue();
             Console.ReadKey();
         }
     }
