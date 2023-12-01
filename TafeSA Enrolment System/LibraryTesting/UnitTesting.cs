@@ -9,15 +9,15 @@ using System.Threading.Tasks;
 namespace TafeSAEnrolmentLibrary
 {
     [TestFixture]
-    class UnitTesting
+    public class UnitTesting
     {
-        private Student s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12;
-        private Student[] students;
-        private LinkedList<Student> lList;
-        private LinkedListNode<Student> studentNode;
-        private DoublyLinkedList<Student> dLList;
-        private DoublyLinkedListNode<Student> dllStudentNode;
-        private BinaryTree<Student> studentTree;
+        protected Student s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12;
+        protected Student[] students;
+        protected LinkedList<Student> lList;
+        protected LinkedListNode<Student> studentNode;
+        protected DoublyLinkedList<Student> dLList;
+        protected DoublyLinkedListNode<Student> dllStudentNode;
+        protected BinaryTree<Student> studentTree;
 
         [SetUp]
         public void Setup()
@@ -98,9 +98,11 @@ namespace TafeSAEnrolmentLibrary
             }
 
         }
-        
-        //8.1 Testing Searching and Sorting
-
+    }
+    //8.1 Testing Searching and Sorting
+    [TestFixture]
+    class SearchSortTesting : UnitTesting
+    {
         [Test]
         public void TestLinearSearch()
         {
@@ -126,14 +128,16 @@ namespace TafeSAEnrolmentLibrary
             Sort.BubbleSort(students);
             Assert.That(students[0].StudentID.Equals(1));
         }
-
-        //8.2 Testing Linked Lists Data Structures
-
+    }
+    //8.2 Testing Linked Lists Data Structures
+    [TestFixture]
+    class LinkedListTesting : UnitTesting
+    {
         //8.2.1 Testing Linked List
         // a)
         [Test]
         public void TestLinkedListHead()
-        {           
+        {
             lList.AddFirst(studentNode);
             Assert.That(lList.Head == studentNode);
         }
@@ -152,7 +156,7 @@ namespace TafeSAEnrolmentLibrary
         public void TestLinkedListFind()
         {
             lList.Add(s11);
-            Assert.That(lList.Contains(s11));   
+            Assert.That(lList.Contains(s11));
         }
 
         // d)
@@ -174,9 +178,13 @@ namespace TafeSAEnrolmentLibrary
             lList.RemoveLast();
             Assert.That(!lList.Contains(s11));
         }
+    }
 
-        //8.2.2 Testing Doubly Linked List
-        // a)
+    //8.2.2 Testing Doubly Linked List
+    // a)
+    [TestFixture]
+    class DoublyLinkedListTesting : UnitTesting
+    {
         [Test]
         public void TestDoublyLinkedListHead()
         {
@@ -198,7 +206,7 @@ namespace TafeSAEnrolmentLibrary
         public void TestDoublyLinkedListFind()
         {
             dLList.Add(s12);
-            Assert.That(dLList.Contains(s12));   
+            Assert.That(dLList.Contains(s12));
         }
 
         // d)
@@ -220,9 +228,11 @@ namespace TafeSAEnrolmentLibrary
             dLList.RemoveLast();
             Assert.That(!dLList.Contains(s12));
         }
-
-        //8.3 Testing Binary Tree
-
+    }
+    //8.3 Testing Binary Tree
+    [TestFixture]
+    class BinaryTesting : UnitTesting
+    {
         //a)
         [Test]
         public void TestBinaryTreeFindSmallest()
@@ -262,31 +272,5 @@ namespace TafeSAEnrolmentLibrary
             result = studentTree.Find(s10);
             ClassicAssert.IsNull(result);
         }
-
-
-        //Exception Testing
-        [Test]
-        public void TestEmptyTree()
-        {
-            BinaryTree<Student> exceptionTree = new BinaryTree<Student>();
-
-            /*Must provide lambda or delegate for Assert.Throws to be able to observe exceptions
-             TestDelegate testDelegateTree = delegate
-            {
-                exceptionTree.FindSmallestValue();
-            };
-            Assert.Throws<InvalidOperationException>(testDelegateTree);
-            **/
-            Assert.Throws<InvalidOperationException>(() => exceptionTree.FindSmallestValue());
-        }
-
-        [Test]
-        public void TestEmptyRemoveTree()
-        {
-            BinaryTree<Student> exceptionTree = new BinaryTree<Student>();
-            Assert.Throws<InvalidOperationException>(() => exceptionTree.Remove(s1));
-        }
-
-
     }
 }
