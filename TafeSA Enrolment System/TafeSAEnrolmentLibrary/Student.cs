@@ -37,7 +37,14 @@ namespace TafeSAEnrolmentLibrary
         //override Student Equals
         public override bool Equals(object obj)
         {
-            return obj.GetHashCode() == this.GetHashCode();
+            if (obj == null)
+                return false;
+            if (ReferenceEquals(obj, this))
+                return true;
+            if (obj.GetType() != this.GetType())
+                return false;
+            Student student = obj as Student;
+            return this.GetHashCode() == student.GetHashCode();
         }
 
         public int CompareTo(Student other)
@@ -56,6 +63,16 @@ namespace TafeSAEnrolmentLibrary
             return !object.Equals(x, y);
         }
 
-        
+        public static bool operator >(Student x, Student y)
+        {
+            return x.StudentID > y.StudentID;
+        }
+
+        public static bool operator <(Student x, Student y)
+        {
+            return x.StudentID < y.StudentID;
+        }
+
+
     }
 }

@@ -13,6 +13,7 @@ namespace TafeSAEnrolmentLibrary
     {
         protected Student s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12;
         protected Student[] students;
+        protected Course c1, c2, c3, c4, c5;
         protected LinkedList<Student> lList;
         protected LinkedListNode<Student> studentNode;
         protected DoublyLinkedList<Student> dLList;
@@ -27,11 +28,11 @@ namespace TafeSAEnrolmentLibrary
             Address a3 = new Address("98", "Windy Lane", "5010", "NSW");
             Address a4 = new Address("222", "Westerlan Road", "5022", "WA");
             Address a5 = new Address("57", "Myron Street", "4441", "NT");
-            Course c1 = new Course("SCN561", "Computer Science", 20000);
-            Course c2 = new Course("JV521", "Java Programming", 11020);
-            Course c3 = new Course("API111", "API Development", 9910);
-            Course c4 = new Course("DAT513", "Database Design", 5100);
-            Course c5 = new Course("SCN562", "Computer Science Practices", 11110);
+            c1 = new Course("SCN561", "Computer Science", 20000);
+            c2 = new Course("JV521", "Java Programming", 11020);
+            c3 = new Course("API11", "API Development", 9910);
+            c4 = new Course("DAT513", "Database Design", 5100);
+            c5 = new Course("SCN562", "Computer Science Practices", 11110);
             Enrolment e1 = new Enrolment(new DateTime(2023, 10, 04), "12", 1, c1);
             Enrolment e2 = new Enrolment(new DateTime(2023, 10, 04), "11", 1, c5);
             Enrolment e3 = new Enrolment(new DateTime(2023, 11, 04), "11", 1, c5);
@@ -99,8 +100,60 @@ namespace TafeSAEnrolmentLibrary
 
         }
     }
-    //8.1 Testing Searching and Sorting
     [TestFixture]
+    class OperatorTesting : UnitTesting
+    {
+        [Test]
+        public void TestGreaterThan()
+        {
+            Assert.That(s1 > s2 == true);
+        }
+
+        [Test]
+        public void TestLessThan()
+        {
+            Assert.That(s2 < s1 == true);
+        }
+
+        [Test]
+        public void TestEqual()
+        {
+            Assert.That(s1 != s2 == true);
+        }
+
+        [Test]
+        public void TestCompareTo()
+        {
+            Assert.That(s1.CompareTo(s2) > 0);
+        }
+
+        //Course Testing
+        [Test]
+        public void TestCourseGreaterThan()
+        {
+            Assert.That(c1 > c2 == true);
+        }
+
+        [Test]
+        public void TestCourseLessThan()
+        {
+            Assert.That(c3 < c2 == true);
+        }
+
+        [Test]
+        public void TestCourseEqual()
+        {
+            Assert.That(c1 != c3 == true);
+        }
+
+        [Test]
+        public void TestCourseCompareTo()
+        {
+            Assert.That(c3.CompareTo(c1) < 0);
+        }
+    }
+        //8.1 Testing Searching and Sorting
+        [TestFixture]
     class SearchSortTesting : UnitTesting
     {
         [Test]
@@ -128,6 +181,7 @@ namespace TafeSAEnrolmentLibrary
             Sort.BubbleSort(students);
             Assert.That(students[0].StudentID.Equals(1));
         }
+    
     }
     //8.2 Testing Linked Lists Data Structures
     [TestFixture]
