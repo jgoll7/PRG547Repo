@@ -1,4 +1,5 @@
 # PRG547Repo
+# Created by Jackson Gollan
 Repository for PRG547 Assignment
 This Repo is home to a library of data structures and algorithms.
 The project also has unit tests which confirm the expected result of each data structure's methods as well as the expected result of the algorithms.
